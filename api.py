@@ -37,7 +37,7 @@ app.add_middleware(
         "https://film-making.vercel.app",
         "https://film-making-app.vercel.app",
         "https://film-making.onrender.com",
-        "https://film-making2.vercel.app/"
+        "https://film-making2.vercel.app"
 
     ],
     allow_credentials=True,
