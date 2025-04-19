@@ -1,0 +1,212 @@
+{
+  "production_title": "Shinchan & Ben 10: Alien Masti in Kasukabe",
+  "start_date": "2025-04-20",
+  "end_date": "2025-04-25",
+  "total_days": 6,
+  "shooting_days": [
+    {
+      "day_number": 1,
+      "date": "2025-04-20",
+      "location": "Shinchan\u2019s House, Kasukabe",
+      "call_time": "7:00 AM",
+      "wrap_time": "3:30 PM",
+      "scenes": [
+        {
+          "scene_number": 1,
+          "title": "Shinchan Meets Ben Tennyson",
+          "start_time": "7:30 AM",
+          "end_time": "10:00 AM",
+          "setup_time": 60,
+          "shooting_time": 120,
+          "breakdown_time": 30
+        }
+      ],
+      "breaks": [
+        {
+          "type": "meal/rest",
+          "start_time": "10:00 AM",
+          "end_time": "10:30 AM"
+        },
+        {
+          "type": "meal/rest",
+          "start_time": "12:30 PM",
+          "end_time": "1:00 PM"
+        }
+      ],
+      "cast_call_times": {
+        "Shinchan": "7:00 AM",
+        "Misae": "7:00 AM",
+        "Hiroshi": "7:00 AM",
+        "Ben Tennyson": "7:00 AM"
+      },
+      "notes": "Setup includes TV flickering and green glowing portal effects; morning time scene. Allocate time for costume and promo props for Ben."
+    },
+    {
+      "day_number": 2,
+      "date": "2025-04-21",
+      "location": "Kasukabe Town - Streets",
+      "call_time": "9:00 AM",
+      "wrap_time": "3:00 PM",
+      "scenes": [
+        {
+          "scene_number": 2,
+          "title": "Exploring Kasukabe with Ben",
+          "start_time": "9:30 AM",
+          "end_time": "12:30 PM",
+          "setup_time": 45,
+          "shooting_time": 120,
+          "breakdown_time": 15
+        }
+      ],
+      "breaks": [
+        {
+          "type": "meal/rest",
+          "start_time": "12:30 PM",
+          "end_time": "1:00 PM"
+        }
+      ],
+      "cast_call_times": {
+        "Shinchan": "9:00 AM",
+        "Ben Tennyson": "9:00 AM"
+      },
+      "notes": "Outdoor afternoon scene; cast to be prepared for sunny weather. Omnitrix prop ready. Travel time to street location included in setup."
+    },
+    {
+      "day_number": 3,
+      "date": "2025-04-22",
+      "location": "Dark Alley, Kasukabe",
+      "call_time": "3:30 PM",
+      "wrap_time": "11:00 PM",
+      "scenes": [
+        {
+          "scene_number": 3,
+          "title": "Zarkon\u2019s Arrival and Attack",
+          "start_time": "4:00 PM",
+          "end_time": "8:00 PM",
+          "setup_time": 60,
+          "shooting_time": 180,
+          "breakdown_time": 30
+        }
+      ],
+      "breaks": [
+        {
+          "type": "meal/rest",
+          "start_time": "6:30 PM",
+          "end_time": "7:00 PM"
+        }
+      ],
+      "cast_call_times": {
+        "Ben Tennyson": "3:30 PM",
+        "Zarkon": "3:30 PM",
+        "Shinchan": "3:30 PM"
+      },
+      "notes": "Nighttime exterior shoot with explosion and special effects; potential weather contingency for overcast/stormy conditions. Coordinate stunt and VFX teams in advance."
+    },
+    {
+      "day_number": 4,
+      "date": "2025-04-23",
+      "location": "Various spots in Kasukabe",
+      "call_time": "6:00 PM",
+      "wrap_time": "11:00 PM",
+      "scenes": [
+        {
+          "scene_number": 4,
+          "title": "Kasukabe Chaos: Shinchan\u2019s Plan",
+          "start_time": "6:30 PM",
+          "end_time": "10:00 PM",
+          "setup_time": 45,
+          "shooting_time": 135,
+          "breakdown_time": 15
+        }
+      ],
+      "breaks": [
+        {
+          "type": "meal/rest",
+          "start_time": "8:30 PM",
+          "end_time": "9:00 PM"
+        }
+      ],
+      "cast_call_times": {
+        "Shinchan": "6:00 PM",
+        "Kazama": "6:00 PM",
+        "Bo-chan": "6:00 PM",
+        "Nene": "6:00 PM",
+        "Masao": "6:00 PM",
+        "Zarkon": "6:00 PM"
+      },
+      "notes": "Nighttime exterior montage at multiple locations; costume and props for slapstick comedy. Ensure child actors\u2019 legal working hours are followed."
+    },
+    {
+      "day_number": 5,
+      "date": "2025-04-24",
+      "location": "Zarkon\u2019s Alien Ship",
+      "call_time": "5:00 PM",
+      "wrap_time": "11:00 PM",
+      "scenes": [
+        {
+          "scene_number": 5,
+          "title": "Final Battle on Zarkon\u2019s Ship",
+          "start_time": "5:30 PM",
+          "end_time": "10:00 PM",
+          "setup_time": 60,
+          "shooting_time": 150,
+          "breakdown_time": 30
+        }
+      ],
+      "breaks": [
+        {
+          "type": "meal/rest",
+          "start_time": "8:00 PM",
+          "end_time": "8:30 PM"
+        }
+      ],
+      "cast_call_times": {
+        "Ben Tennyson": "5:00 PM",
+        "Shinchan": "5:00 PM",
+        "Zarkon": "5:00 PM"
+      },
+      "notes": "Nighttime interior set; requires complex set design, laser effects, and special prosthetics. Coordinate VFX and effects teams."
+    },
+    {
+      "day_number": 6,
+      "date": "2025-04-25",
+      "location": "Outside Shinchan\u2019s House & Omniverse",
+      "call_time": "7:00 AM",
+      "wrap_time": "3:30 PM",
+      "scenes": [
+        {
+          "scene_number": 6,
+          "title": "Ben\u2019s Goodbye",
+          "start_time": "7:30 AM",
+          "end_time": "10:00 AM",
+          "setup_time": 45,
+          "shooting_time": 105,
+          "breakdown_time": 30
+        },
+        {
+          "scene_number": 7,
+          "title": "Post-Credit Scene: New Shin-Alien Form",
+          "start_time": "11:00 AM",
+          "end_time": "12:30 PM",
+          "setup_time": 30,
+          "shooting_time": 45,
+          "breakdown_time": 15
+        }
+      ],
+      "breaks": [
+        {
+          "type": "meal/rest",
+          "start_time": "10:00 AM",
+          "end_time": "10:30 AM"
+        }
+      ],
+      "cast_call_times": {
+        "Ben Tennyson": "7:00 AM",
+        "Shinchan": "7:00 AM",
+        "Misae": "7:00 AM",
+        "Omnitrix Voice (VO Artist)": "10:30 AM"
+      },
+      "notes": "Morning exterior scene followed by a studio interior or green screen shoot for post-credit scene with animation and voice-over. Portal effects require prep. VO artist call timed separately."
+    }
+  ]
+}

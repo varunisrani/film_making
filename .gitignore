@@ -1,0 +1,10 @@
+# Created by .ignore support plugin (hsz.mobi)
+.env
+.env.*
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store
+data/logs/
+data/cache/
