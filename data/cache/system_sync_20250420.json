@@ -1,0 +1,21 @@
+{
+  "production_title": "Shinchan & Ben 10: Alien Masti in Kasukabe",
+  "total_scenes": 7,
+  "shooting_days": 6,
+  "total_budget": 106425,
+  "start_date": "2025-04-20",
+  "end_date": "2025-04-25",
+  "sync_status": {
+    "script_analysis": "Complete",
+    "schedule": "Complete",
+    "budget": "Complete",
+    "one_liners": "Complete",
+    "characters": "Complete"
+  },
+  "last_updated": "2025-04-20 00:22:10",
+  "summary": {
+    "scenes_per_day": 1.17,
+    "budget_per_day": 17737.5,
+    "budget_per_scene": 15203.57
+  }
+}

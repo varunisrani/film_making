@@ -1,0 +1,204 @@
+{
+  "production_title": "Shinchan & Ben 10: Alien Masti in Kasukabe",
+  "total_budget": 106425,
+  "per_day_average": 17738,
+  "contingency": 9693.18,
+  "days": [
+    {
+      "day_number": 1,
+      "date": "2025-04-20",
+      "total": 18300,
+      "categories": {
+        "cast": 4400,
+        "crew": 4600,
+        "equipment": 2200,
+        "locations": 1500,
+        "transportation": 800,
+        "meals": 800,
+        "other": 1000
+      },
+      "scenes": [
+        {
+          "scene_number": 1,
+          "cost": 18300,
+          "breakdown": {
+            "cast": 4400,
+            "crew": 4600,
+            "equipment": 2200,
+            "locations": 1500,
+            "transportation": 800,
+            "meals": 800,
+            "other": 1000
+          }
+        }
+      ]
+    },
+    {
+      "day_number": 2,
+      "date": "2025-04-21",
+      "total": 14125,
+      "categories": {
+        "cast": 2000,
+        "crew": 4300,
+        "equipment": 1900,
+        "locations": 1500,
+        "transportation": 800,
+        "meals": 700,
+        "other": 925
+      },
+      "scenes": [
+        {
+          "scene_number": 2,
+          "cost": 14125,
+          "breakdown": {
+            "cast": 2000,
+            "crew": 4300,
+            "equipment": 1900,
+            "locations": 1500,
+            "transportation": 800,
+            "meals": 700,
+            "other": 925
+          }
+        }
+      ]
+    },
+    {
+      "day_number": 3,
+      "date": "2025-04-22",
+      "total": 19800,
+      "categories": {
+        "cast": 4700,
+        "crew": 6500,
+        "equipment": 3000,
+        "locations": 2000,
+        "transportation": 900,
+        "meals": 1000,
+        "other": 700
+      },
+      "scenes": [
+        {
+          "scene_number": 3,
+          "cost": 19800,
+          "breakdown": {
+            "cast": 4700,
+            "crew": 6500,
+            "equipment": 3000,
+            "locations": 2000,
+            "transportation": 900,
+            "meals": 1000,
+            "other": 700
+          }
+        }
+      ]
+    },
+    {
+      "day_number": 4,
+      "date": "2025-04-23",
+      "total": 18400,
+      "categories": {
+        "cast": 4700,
+        "crew": 5900,
+        "equipment": 2600,
+        "locations": 1500,
+        "transportation": 900,
+        "meals": 900,
+        "other": 900
+      },
+      "scenes": [
+        {
+          "scene_number": 4,
+          "cost": 18400,
+          "breakdown": {
+            "cast": 4700,
+            "crew": 5900,
+            "equipment": 2600,
+            "locations": 1500,
+            "transportation": 900,
+            "meals": 900,
+            "other": 900
+          }
+        }
+      ]
+    },
+    {
+      "day_number": 5,
+      "date": "2025-04-24",
+      "total": 19000,
+      "categories": {
+        "cast": 4200,
+        "crew": 6200,
+        "equipment": 2800,
+        "locations": 2000,
+        "transportation": 900,
+        "meals": 900,
+        "other": 1000
+      },
+      "scenes": [
+        {
+          "scene_number": 5,
+          "cost": 19000,
+          "breakdown": {
+            "cast": 4200,
+            "crew": 6200,
+            "equipment": 2800,
+            "locations": 2000,
+            "transportation": 900,
+            "meals": 900,
+            "other": 1000
+          }
+        }
+      ]
+    },
+    {
+      "day_number": 6,
+      "date": "2025-04-25",
+      "total": 16800,
+      "categories": {
+        "cast": 3800,
+        "crew": 5400,
+        "equipment": 2300,
+        "locations": 1200,
+        "transportation": 800,
+        "meals": 850,
+        "other": 450
+      },
+      "scenes": [
+        {
+          "scene_number": 6,
+          "cost": 10800,
+          "breakdown": {
+            "cast": 2700,
+            "crew": 3500,
+            "equipment": 1500,
+            "locations": 700,
+            "transportation": 400,
+            "meals": 500,
+            "other": 500
+          }
+        },
+        {
+          "scene_number": 7,
+          "cost": 6000,
+          "breakdown": {
+            "cast": 1100,
+            "crew": 1900,
+            "equipment": 800,
+            "locations": 500,
+            "transportation": 400,
+            "meals": 350,
+            "other": 950
+          }
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "cast_total": 25800,
+    "crew_total": 33800,
+    "equipment_total": 14700,
+    "locations_total": 10200,
+    "transportation_total": 4600,
+    "meals_total": 4750,
+    "other_total": 6650
+  }
+}

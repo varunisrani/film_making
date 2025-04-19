@@ -1,0 +1,308 @@
+{
+  "production_title": "Shinchan & Ben 10: Alien Masti in Kasukabe",
+  "characters": [
+    {
+      "name": "Shinchan",
+      "age": "5-6 years old",
+      "role_type": "protagonist",
+      "description": "A mischievous and energetic young boy with short hair and expressive facial features. Known for his cheeky smile and unconventional antics.",
+      "emotional_arc": "Starts as curious and playful, intrigued by Ben\u2019s alien powers. Faces a threat with Ben and transforms into a clever, brave collaborator using his unique, silly tactics to help defeat Zarkon. Ends with humorous pride in his \u2018Super Shinchan\u2019 persona.",
+      "screen_time": 100,
+      "relationships": [
+        {
+          "with": "Ben Tennyson",
+          "nature": "New friend and ally; curious and eager to learn from Ben yet applying his own unconventional methods."
+        },
+        {
+          "with": "Misae",
+          "nature": "Mother-son relationship; Misae is protective, often worried about Shinchan's antics."
+        },
+        {
+          "with": "Hiroshi",
+          "nature": "Father-son relationship; present in family scenes, less central but supportive."
+        },
+        {
+          "with": "Kazama, Bo-chan, Nene, Masao",
+          "nature": "Friends and teammates; assist Shinchan in confusing the villain."
+        },
+        {
+          "with": "Zarkon",
+          "nature": "Adversary; Shinchan opposes Zarkon's destructive plans with resourcefulness and humor."
+        }
+      ],
+      "traits": [
+        "Mischievous",
+        "Energetic",
+        "Imaginative",
+        "Brave despite childishness",
+        "Humorous",
+        "Resourceful under pressure"
+      ],
+      "scenes": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "name": "Ben Tennyson",
+      "age": "15-16 years old",
+      "role_type": "protagonist",
+      "description": "A teenage boy with short brown hair, wearing a distinctive Omnitrix device on his wrist. Calm, confident, and experienced in fighting aliens.",
+      "emotional_arc": "Arrives confused and out-of-place but quickly bonds with Shinchan and grows to appreciate his unusual methods. Faces a powerful enemy and learns to rely on teamwork with Shinchan while repairing his Omnitrix. Departs with respect and fondness for Shinchan, surprised by the influence Shinchan leaves on his powers.",
+      "screen_time": 100,
+      "relationships": [
+        {
+          "with": "Shinchan",
+          "nature": "Friend and ally; mentor-like figure who also learns from Shinchan\u2019s unique approach."
+        },
+        {
+          "with": "Misae",
+          "nature": "Brief cautious interaction; Misae is wary but comes to accept Ben."
+        },
+        {
+          "with": "Zarkon",
+          "nature": "Antagonist; Ben\u2019s primary combat opponent."
+        },
+        {
+          "with": "Omnitrix Voice",
+          "nature": "Internal guidance; Omnitrix voice provides warnings and new information."
+        }
+      ],
+      "traits": [
+        "Confident",
+        "Knowledgeable about aliens",
+        "Responsible",
+        "Brave",
+        "Good-natured",
+        "Mentor-like"
+      ],
+      "scenes": [
+        1,
+        2,
+        3,
+        5,
+        6,
+        7
+      ]
+    },
+    {
+      "name": "Misae",
+      "age": "30-40 years old",
+      "role_type": "supporting",
+      "description": "Shinchan\u2019s mother; a caring and sometimes anxious woman. Practical appearance with a nurturing demeanor.",
+      "emotional_arc": "Starts off panicked by Ben\u2019s sudden appearance, then warms gradually. Acts as a grounding figure, reacting to Shinchan\u2019s antics and the alien invasion with motherly concern.",
+      "screen_time": 29,
+      "relationships": [
+        {
+          "with": "Shinchan",
+          "nature": "Protective mother; often scolds or worries but deeply cares."
+        },
+        {
+          "with": "Ben Tennyson",
+          "nature": "Initially suspicious but ultimately accepting of Ben."
+        },
+        {
+          "with": "Hiroshi",
+          "nature": "Spouse; shares family dynamic though less central in script."
+        }
+      ],
+      "traits": [
+        "Protective",
+        "Caring",
+        "Anxious about family safety",
+        "Pragmatic"
+      ],
+      "scenes": [
+        1,
+        6
+      ]
+    },
+    {
+      "name": "Hiroshi",
+      "age": "30-40 years old",
+      "role_type": "supporting",
+      "description": "Shinchan\u2019s father; calm and typical family man. Often seen in background family scenes.",
+      "emotional_arc": "Acts as part of the family unit, largely a passive observer to events and Shinchan\u2019s antics.",
+      "screen_time": 14,
+      "relationships": [
+        {
+          "with": "Shinchan",
+          "nature": "Father-son relationship; supportive though less direct involvement."
+        },
+        {
+          "with": "Misae",
+          "nature": "Spousal relationship; shares family responsibilities."
+        }
+      ],
+      "traits": [
+        "Calm",
+        "Supportive",
+        "Mild-mannered"
+      ],
+      "scenes": [
+        1
+      ]
+    },
+    {
+      "name": "Zarkon",
+      "age": "Unknown (alien)",
+      "role_type": "antagonist",
+      "description": "Alien villain with imposing presence, equipped with advanced technology including a dimensional drill. Dark costume evoking menace.",
+      "emotional_arc": "Arrives as a powerful, destructive threat stealing Earth's energy. Overconfident initially, eventually overwhelmed and defeated by the teamwork and chaotic tactics of Ben, Shinchan, and friends.",
+      "screen_time": 57,
+      "relationships": [
+        {
+          "with": "Ben Tennyson",
+          "nature": "Primary adversary; direct combat opponent."
+        },
+        {
+          "with": "Shinchan",
+          "nature": "Opposition; Shinchan and friends foil his plans through unconventional methods."
+        }
+      ],
+      "traits": [
+        "Menacing",
+        "Powerful",
+        "Overconfident",
+        "Persistent",
+        "Threatening"
+      ],
+      "scenes": [
+        3,
+        4,
+        5
+      ]
+    },
+    {
+      "name": "Kazama",
+      "age": "5-6 years old",
+      "role_type": "supporting",
+      "description": "One of Shinchan\u2019s friends; often serious and responsible among the group of children.",
+      "emotional_arc": "Acts as part of the group assisting Shinchan, contributing tactics to confuse Zarkon, providing comic contrast through earnestness.",
+      "screen_time": 14,
+      "relationships": [
+        {
+          "with": "Shinchan",
+          "nature": "Friend and teammate."
+        },
+        {
+          "with": "Other friends (Bo-chan, Nene, Masao)",
+          "nature": "Group allies in the distraction tactics."
+        }
+      ],
+      "traits": [
+        "Serious",
+        "Responsible",
+        "Supportive"
+      ],
+      "scenes": [
+        4
+      ]
+    },
+    {
+      "name": "Bo-chan",
+      "age": "5-6 years old",
+      "role_type": "supporting",
+      "description": "One of Shinchan\u2019s friends; slow-talking and often spaced out but helpful.",
+      "emotional_arc": "Contributes to the comedic chaotic plan; his silent or slow communication style adds humor.",
+      "screen_time": 14,
+      "relationships": [
+        {
+          "with": "Shinchan",
+          "nature": "Friend and teammate."
+        },
+        {
+          "with": "Other friends",
+          "nature": "Group member in the prank tactics."
+        }
+      ],
+      "traits": [
+        "Slow-speaking",
+        "Quiet",
+        "Loyal"
+      ],
+      "scenes": [
+        4
+      ]
+    },
+    {
+      "name": "Nene",
+      "age": "5-6 years old",
+      "role_type": "supporting",
+      "description": "One of Shinchan\u2019s female friends; tough and sometimes aggressive personality.",
+      "emotional_arc": "Uses her strength (e.g., rabbit punch) to contribute to defeating Zarkon; exemplifies bravery despite young age.",
+      "screen_time": 14,
+      "relationships": [
+        {
+          "with": "Shinchan",
+          "nature": "Friend and ally."
+        },
+        {
+          "with": "Other friends",
+          "nature": "Group member participating in battle tactics."
+        }
+      ],
+      "traits": [
+        "Tough",
+        "Assertive",
+        "Brave"
+      ],
+      "scenes": [
+        4
+      ]
+    },
+    {
+      "name": "Masao",
+      "age": "5-6 years old",
+      "role_type": "supporting",
+      "description": "One of Shinchan\u2019s friends; timid and nervous but loyal friend.",
+      "emotional_arc": "Supports the group's chaotic plans with nervous enthusiasm.",
+      "screen_time": 14,
+      "relationships": [
+        {
+          "with": "Shinchan",
+          "nature": "Friend and teammate."
+        },
+        {
+          "with": "Other friends",
+          "nature": "Team member contributing to distraction tactics."
+        }
+      ],
+      "traits": [
+        "Timid",
+        "Nervous",
+        "Loyal"
+      ],
+      "scenes": [
+        4
+      ]
+    },
+    {
+      "name": "Omnitrix Voice",
+      "age": "N/A",
+      "role_type": "supporting (non-human)",
+      "description": "Disembodied voice from the Omnitrix device providing alerts and information to Ben.",
+      "emotional_arc": "Acts as an informative guide revealing the new Shin-Alien form and its potential.",
+      "screen_time": 14,
+      "relationships": [
+        {
+          "with": "Ben Tennyson",
+          "nature": "Advisor and device interface."
+        }
+      ],
+      "traits": [
+        "Informative",
+        "Calm",
+        "Mysterious"
+      ],
+      "scenes": [
+        7
+      ]
+    }
+  ]
+}
