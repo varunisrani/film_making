@@ -47,13 +47,24 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MovieIcon from '@mui/icons-material/Movie';
-import DownloadIcon from '@mui/icons-material/Download';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import InfoIcon from '@mui/icons-material/Info';
 
+// Define breakpoints for responsive design
+const breakpoints = {
+  values: {
+    xs: 0,
+    sm: 600,
+    md: 960,
+    lg: 1280,
+    xl: 1920,
+  },
+};
+
 // Create custom theme with enhanced design
 const lightTheme = createTheme({
+  breakpoints: breakpoints,
   palette: {
     mode: 'light',
     primary: {
@@ -94,24 +105,30 @@ const lightTheme = createTheme({
     h1: {
       fontWeight: 800,
       letterSpacing: '-0.025em',
+      fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', // Responsive font size
     },
     h2: {
       fontWeight: 700,
       letterSpacing: '-0.025em',
+      fontSize: 'clamp(2rem, 4vw, 3rem)', // Responsive font size
     },
     h3: {
       fontWeight: 700,
       letterSpacing: '-0.015em',
+      fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', // Responsive font size
     },
     h4: {
       fontWeight: 700,
       letterSpacing: '-0.01em',
+      fontSize: 'clamp(1.5rem, 3vw, 2rem)', // Responsive font size
     },
     h5: {
       fontWeight: 600,
+      fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)', // Responsive font size
     },
     h6: {
       fontWeight: 600,
+      fontSize: 'clamp(1rem, 2vw, 1.25rem)', // Responsive font size
     },
     button: {
       fontWeight: 600,
@@ -121,6 +138,12 @@ const lightTheme = createTheme({
     },
     subtitle2: {
       fontWeight: 500,
+    },
+    body1: {
+      fontSize: 'clamp(0.875rem, 1.5vw, 1rem)', // Responsive font size
+    },
+    body2: {
+      fontSize: 'clamp(0.75rem, 1.25vw, 0.875rem)', // Responsive font size
     },
   },
   shape: {
@@ -283,6 +306,7 @@ const lightTheme = createTheme({
 });
 
 const darkTheme = createTheme({
+  breakpoints: breakpoints,
   palette: {
     mode: 'dark',
     primary: {
@@ -323,24 +347,30 @@ const darkTheme = createTheme({
     h1: {
       fontWeight: 800,
       letterSpacing: '-0.025em',
+      fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', // Responsive font size
     },
     h2: {
       fontWeight: 700,
       letterSpacing: '-0.025em',
+      fontSize: 'clamp(2rem, 4vw, 3rem)', // Responsive font size
     },
     h3: {
       fontWeight: 700,
       letterSpacing: '-0.015em',
+      fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', // Responsive font size
     },
     h4: {
       fontWeight: 700,
       letterSpacing: '-0.01em',
+      fontSize: 'clamp(1.5rem, 3vw, 2rem)', // Responsive font size
     },
     h5: {
       fontWeight: 600,
+      fontSize: 'clamp(1.25rem, 2.5vw, 1.5rem)', // Responsive font size
     },
     h6: {
       fontWeight: 600,
+      fontSize: 'clamp(1rem, 2vw, 1.25rem)', // Responsive font size
     },
     button: {
       fontWeight: 600,
@@ -350,6 +380,12 @@ const darkTheme = createTheme({
     },
     subtitle2: {
       fontWeight: 500,
+    },
+    body1: {
+      fontSize: 'clamp(0.875rem, 1.5vw, 1rem)', // Responsive font size
+    },
+    body2: {
+      fontSize: 'clamp(0.75rem, 1.25vw, 0.875rem)', // Responsive font size
     },
   },
   shape: {
@@ -524,7 +560,7 @@ const steps = [
 ];
 
 // API base URL
-const API_BASE_URL = 'https://varun324242-sjuuper.hf.space/api';
+const API_BASE_URL = 'https://film-making.onrender.com/api';
 
 // Define types for our data
 interface Scene {
@@ -2438,66 +2474,98 @@ export default function Home() {
               ? 'rgba(19, 47, 76, 0.9)'
               : 'rgba(255, 255, 255, 0.9)',
             borderBottom: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`,
+            height: { xs: '64px', sm: '70px', md: '80px' }, // Responsive height
           }}
         >
-          <Toolbar sx={{ px: { xs: 2, sm: 4 } }}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{
-                mr: 2,
-                transition: 'transform 0.2s',
-                '&:hover': {
-                  transform: 'scale(1.1)',
-                  backgroundColor: theme.palette.mode === 'dark'
-                    ? 'rgba(255,255,255,0.1)'
-                    : 'rgba(0,0,0,0.05)',
-                }
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                background: theme.palette.mode === 'dark'
-                  ? 'linear-gradient(90deg, #738bff, #ff5eb1)'
-                  : 'linear-gradient(90deg, #4361ee, #f72585)',
-                borderRadius: '50%',
-                p: 1,
-                mr: 2,
-                boxShadow: theme.palette.mode === 'dark'
-                  ? '0 0 15px rgba(115, 139, 255, 0.5)'
-                  : '0 0 15px rgba(67, 97, 238, 0.5)',
-              }}
-            >
-              <MovieIcon sx={{ color: '#fff' }} />
+          <Toolbar 
+            sx={{ 
+              px: { xs: 1, sm: 2, md: 4 },
+              minHeight: { xs: '64px', sm: '70px', md: '80px' }, // Match AppBar height
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between'
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <IconButton
+                color="inherit"
+                aria-label="open drawer"
+                edge="start"
+                onClick={handleDrawerToggle}
+                sx={{
+                  mr: { xs: 1, sm: 2 },
+                  transition: 'transform 0.2s',
+                  '&:hover': {
+                    transform: 'scale(1.1)',
+                    backgroundColor: theme.palette.mode === 'dark'
+                      ? 'rgba(255,255,255,0.1)'
+                      : 'rgba(0,0,0,0.05)',
+                  }
+                }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  background: theme.palette.mode === 'dark'
+                    ? 'linear-gradient(90deg, #738bff, #ff5eb1)'
+                    : 'linear-gradient(90deg, #4361ee, #f72585)',
+                  borderRadius: '50%',
+                  p: { xs: 0.75, sm: 1 },
+                  mr: { xs: 1, sm: 2 },
+                  boxShadow: theme.palette.mode === 'dark'
+                    ? '0 0 15px rgba(115, 139, 255, 0.5)'
+                    : '0 0 15px rgba(67, 97, 238, 0.5)',
+                }}
+              >
+                <MovieIcon sx={{ color: '#fff', fontSize: { xs: '1.25rem', sm: '1.5rem' } }} />
+              </Box>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{
+                  flexGrow: 1,
+                  fontWeight: 700,
+                  background: theme.palette.mode === 'dark'
+                    ? 'linear-gradient(90deg, #a4b8ff, #ff90d1)'
+                    : 'linear-gradient(90deg, #4361ee, #f72585)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  letterSpacing: '-0.01em',
+                  fontSize: { xs: '1rem', sm: '1.25rem' },
+                  display: { xs: 'none', sm: 'block' }, // Hide on mobile, show on tablet and up
+                }}
+              >
+                Film Production AI Assistant
+              </Typography>
+              <Typography
+                variant="h6"
+                noWrap
+                component="div"
+                sx={{
+                  flexGrow: 1,
+                  fontWeight: 700,
+                  background: theme.palette.mode === 'dark'
+                    ? 'linear-gradient(90deg, #a4b8ff, #ff90d1)'
+                    : 'linear-gradient(90deg, #4361ee, #f72585)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  letterSpacing: '-0.01em',
+                  fontSize: '1rem',
+                  display: { xs: 'block', sm: 'none' }, // Show on mobile, hide on tablet and up
+                }}
+              >
+                Film AI
+              </Typography>
             </Box>
-            <Typography
-              variant="h6"
-              noWrap
-              component="div"
-              sx={{
-                flexGrow: 1,
-                fontWeight: 700,
-                background: theme.palette.mode === 'dark'
-                  ? 'linear-gradient(90deg, #a4b8ff, #ff90d1)'
-                  : 'linear-gradient(90deg, #4361ee, #f72585)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                letterSpacing: '-0.01em',
-              }}
-            >
-              Film Production AI Assistant
-            </Typography>
             <IconButton
               color="inherit"
               onClick={toggleTheme}
               sx={{
-                ml: 1,
                 transition: 'all 0.3s ease',
                 transform: darkMode ? 'rotate(180deg)' : 'rotate(0deg)',
                 '&:hover': {
@@ -2518,10 +2586,11 @@ export default function Home() {
           open={drawerOpen}
           onClose={handleDrawerToggle}
           sx={{
-            width: 280,
+            width: { xs: '85%', sm: 280 }, // Full width on mobile, fixed on larger screens
             flexShrink: 0,
             '& .MuiDrawer-paper': {
-              width: 280,
+              width: { xs: '85%', sm: 280 }, // Full width on mobile, fixed on larger screens
+              maxWidth: '100%',
               boxSizing: 'border-box',
               borderRight: 'none',
               boxShadow: theme.palette.mode === 'dark'
@@ -2530,6 +2599,7 @@ export default function Home() {
               background: theme.palette.mode === 'dark'
                 ? 'linear-gradient(180deg, #132f4c 0%, #0a1929 100%)'
                 : 'linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%)',
+              backdropFilter: 'blur(10px)',
             },
           }}
         >
@@ -2538,9 +2608,9 @@ export default function Home() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              p: 2,
-              pt: 3,
-              pb: 2,
+              p: { xs: 1.5, sm: 2 },
+              pt: { xs: 2, sm: 3 },
+              pb: { xs: 1.5, sm: 2 },
               borderBottom: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)'}`,
             }}
           >
@@ -2551,22 +2621,28 @@ export default function Home() {
                     ? 'linear-gradient(90deg, #738bff, #ff5eb1)'
                     : 'linear-gradient(90deg, #4361ee, #f72585)',
                   borderRadius: '50%',
-                  p: 1,
-                  mr: 2,
+                  p: { xs: 0.75, sm: 1 },
+                  mr: { xs: 1.5, sm: 2 },
                   boxShadow: theme.palette.mode === 'dark'
                     ? '0 0 15px rgba(115, 139, 255, 0.5)'
                     : '0 0 15px rgba(67, 97, 238, 0.5)',
                 }}
               >
-                <MovieIcon sx={{ color: '#fff' }} />
+                <MovieIcon sx={{ color: '#fff', fontSize: { xs: '1.25rem', sm: '1.5rem' } }} />
               </Box>
-              <Typography variant="h6" fontWeight="bold">Navigation</Typography>
+              <Typography 
+                variant="h6" 
+                fontWeight="bold"
+                sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }}
+              >
+                Navigation
+              </Typography>
             </Box>
-            <IconButton onClick={handleDrawerToggle}>
+            <IconButton onClick={handleDrawerToggle} size="small">
               <ChevronLeftIcon />
             </IconButton>
           </Box>
-          <Box sx={{ overflow: 'auto', p: 2 }}>
+          <Box sx={{ overflow: 'auto', p: { xs: 1.5, sm: 2 } }}>
             <List>
               {steps.map((step, index) => (
                 <ListItem
@@ -2577,8 +2653,9 @@ export default function Home() {
                       (theme.palette.mode === 'dark' ? 'rgba(115, 139, 255, 0.15)' : 'rgba(67, 97, 238, 0.08)') :
                       'transparent',
                     borderRadius: 2,
-                    mb: 1,
-                    py: 1.5,
+                    mb: { xs: 0.5, sm: 1 },
+                    py: { xs: 1, sm: 1.5 },
+                    px: { xs: 1, sm: 2 },
                     transition: 'all 0.2s ease',
                     position: 'relative',
                     overflow: 'hidden',
@@ -2608,7 +2685,10 @@ export default function Home() {
                     color: activeStep === index ?
                       (theme.palette.mode === 'dark' ? '#738bff' : '#4361ee') :
                       'inherit',
-                    minWidth: 45,
+                    minWidth: { xs: 35, sm: 45 },
+                    '& .MuiSvgIcon-root': {
+                      fontSize: { xs: '1.25rem', sm: '1.5rem' }
+                    }
                   }}>
                     {step.icon}
                   </ListItemIcon>
@@ -2620,6 +2700,7 @@ export default function Home() {
                         color: activeStep === index ?
                           (theme.palette.mode === 'dark' ? '#738bff' : '#4361ee') :
                           'inherit',
+                        fontSize: { xs: '0.875rem', sm: '1rem' },
                       }
                     }}
                   />
@@ -2700,10 +2781,49 @@ export default function Home() {
               backdropFilter: 'blur(10px)',
             }}
           >
+            {/* Mobile stepper - simplified version */}
+            <Box sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'center', mb: 2 }}>
+              <Box sx={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                justifyContent: 'center',
+                width: '100%',
+                maxWidth: 300,
+                position: 'relative',
+                py: 1
+              }}>
+                {steps.map((_, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: '50%',
+                      mx: 0.5,
+                      transition: 'all 0.3s ease',
+                      bgcolor: index === activeStep 
+                        ? (theme.palette.mode === 'dark' ? '#738bff' : '#4361ee')
+                        : index < activeStep
+                          ? (theme.palette.mode === 'dark' ? 'rgba(115, 139, 255, 0.5)' : 'rgba(67, 97, 238, 0.5)')
+                          : (theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)'),
+                      transform: index === activeStep ? 'scale(1.5)' : 'scale(1)',
+                      boxShadow: index === activeStep 
+                        ? (theme.palette.mode === 'dark' 
+                            ? '0 0 8px rgba(115, 139, 255, 0.8)' 
+                            : '0 0 8px rgba(67, 97, 238, 0.8)')
+                        : 'none',
+                    }}
+                  />
+                ))}
+              </Box>
+            </Box>
+            
+            {/* Desktop stepper */}
             <Stepper
               activeStep={activeStep}
               alternativeLabel
               sx={{
+                display: { xs: 'none', md: 'flex' },
                 '& .MuiStepConnector-line': {
                   minHeight: 3,
                   borderTopWidth: 3,
