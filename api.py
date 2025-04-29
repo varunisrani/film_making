@@ -1,10 +1,15 @@
 import sys
 import os
-# Add the current directory to the Python path
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+# Get absolute path of the project root directory
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# Add the project root to the Python path
+sys.path.insert(0, PROJECT_ROOT)
+
 # Add the sd1 directory to the Python path
-sd1_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sd1')
-sys.path.append(sd1_path)
+sd1_path = os.path.join(PROJECT_ROOT, 'sd1')
+sys.path.insert(0, sd1_path)
 
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form, BackgroundTasks, Response
 from fastapi.middleware.cors import CORSMiddleware
