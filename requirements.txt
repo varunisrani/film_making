@@ -58,4 +58,5 @@ pytest-asyncio
 # Optional dependencies
 colorama  # For colored terminal output
 tqdm      # For progress bars
-replicategoogle-generativeai
+replicate
+google-generativeai
