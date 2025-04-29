@@ -25,12 +25,12 @@ from dotenv import load_dotenv
 # Import coordinators from SD1
 try:
     # Try the module import for installed package
-    from sd1.src.script_ingestion.coordinator import ScriptIngestionCoordinator
-    from sd1.src.character_breakdown.coordinator import CharacterBreakdownCoordinator
-    from sd1.src.scheduling.coordinator import SchedulingCoordinator
-    from sd1.src.budgeting.coordinator import BudgetingCoordinator
-    from sd1.src.storyboard.coordinator import StoryboardCoordinator
-    from sd1.src.one_liner.agents.one_linear_agent import OneLinerAgent
+    from .sd1.src.script_ingestion.coordinator import ScriptIngestionCoordinator
+    from .sd1.src.character_breakdown.coordinator import CharacterBreakdownCoordinator
+    from .sd1.src.scheduling.coordinator import SchedulingCoordinator
+    from .sd1.src.budgeting.coordinator import BudgetingCoordinator
+    from .sd1.src.storyboard.coordinator import StoryboardCoordinator
+    from .sd1.src.one_liner.agents.one_linear_agent import OneLinerAgent
 except ImportError:
     try:
         # Try direct import with sd1 as root
@@ -53,20 +53,20 @@ except ImportError:
 # Import agents from SD1
 try:
     # Try the module import for installed package
-    from sd1.src.script_ingestion.agents.parser_agent import ScriptParserAgent
-    from sd1.src.script_ingestion.agents.metadata_agent import MetadataAgent
-    from sd1.src.script_ingestion.agents.validator_agent import ValidatorAgent
-    from sd1.src.character_breakdown.agents.attribute_mapper_agent import AttributeMapperAgent
-    from sd1.src.character_breakdown.agents.dialogue_profiler_agent import DialogueProfilerAgent
-    from sd1.src.scheduling.agents.location_optimizer_agent import LocationOptimizerAgent
-    from sd1.src.scheduling.agents.schedule_generator_agent import ScheduleGeneratorAgent
-    from sd1.src.scheduling.agents.crew_allocator_agent import CrewAllocatorAgent
-    from sd1.src.budgeting.agents.cost_estimator_agent import CostEstimatorAgent
-    from sd1.src.budgeting.agents.budget_optimizer_agent import BudgetOptimizerAgent
-    from sd1.src.budgeting.agents.budget_tracker_agent import BudgetTrackerAgent
-    from sd1.src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
-    from sd1.src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
-    from sd1.src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
+    from .sd1.src.script_ingestion.agents.parser_agent import ScriptParserAgent
+    from .sd1.src.script_ingestion.agents.metadata_agent import MetadataAgent
+    from .sd1.src.script_ingestion.agents.validator_agent import ValidatorAgent
+    from .sd1.src.character_breakdown.agents.attribute_mapper_agent import AttributeMapperAgent
+    from .sd1.src.character_breakdown.agents.dialogue_profiler_agent import DialogueProfilerAgent
+    from .sd1.src.scheduling.agents.location_optimizer_agent import LocationOptimizerAgent
+    from .sd1.src.scheduling.agents.schedule_generator_agent import ScheduleGeneratorAgent
+    from .sd1.src.scheduling.agents.crew_allocator_agent import CrewAllocatorAgent
+    from .sd1.src.budgeting.agents.cost_estimator_agent import CostEstimatorAgent
+    from .sd1.src.budgeting.agents.budget_optimizer_agent import BudgetOptimizerAgent
+    from .sd1.src.budgeting.agents.budget_tracker_agent import BudgetTrackerAgent
+    from .sd1.src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
+    from .sd1.src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
+    from .sd1.src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
 except ImportError:
     try:
         # Try direct import with sd1 as root
