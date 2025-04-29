@@ -7,9 +7,9 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # Add the project root to the Python path
 sys.path.insert(0, PROJECT_ROOT)
 
-# Add the sd1 directory to the Python path
-sd1_path = os.path.join(PROJECT_ROOT, 'sd1')
-sys.path.insert(0, sd1_path)
+# REMOVE: Add the sd1 directory to the Python path
+# sd1_path = os.path.join(PROJECT_ROOT, 'sd1')
+# sys.path.insert(0, sd1_path)
 
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form, BackgroundTasks, Response
 from fastapi.middleware.cors import CORSMiddleware
@@ -22,37 +22,24 @@ import logging
 from datetime import datetime, date, timedelta
 from dotenv import load_dotenv
 
-# Import coordinators from SD1
+# Import coordinators directly using the 'agents.src' path
 try:
-    # Try the module import for installed package
-    from .agents.src.script_ingestion.coordinator import ScriptIngestionCoordinator
-    from .agents.src.character_breakdown.coordinator import CharacterBreakdownCoordinator
-    from .agents.src.scheduling.coordinator import SchedulingCoordinator
-    from .agents.src.budgeting.coordinator import BudgetingCoordinator
-    from .agents.src.storyboard.coordinator import StoryboardCoordinator
-    from .agents.src.one_liner.agents.one_linear_agent import OneLinerAgent
-except ImportError:
-    try:
-        # Try direct import with sd1 as root
-        from src.script_ingestion.coordinator import ScriptIngestionCoordinator
-        from src.character_breakdown.coordinator import CharacterBreakdownCoordinator
-        from src.scheduling.coordinator import SchedulingCoordinator
-        from src.budgeting.coordinator import BudgetingCoordinator
-        from src.storyboard.coordinator import StoryboardCoordinator
-        from src.one_liner.agents.one_linear_agent import OneLinerAgent
-    except ImportError:
-        # Final fallback - try relative import from sd1 directory
-        sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sd1'))
-        from src.script_ingestion.coordinator import ScriptIngestionCoordinator
-        from src.character_breakdown.coordinator import CharacterBreakdownCoordinator
-        from src.scheduling.coordinator import SchedulingCoordinator
-        from src.budgeting.coordinator import BudgetingCoordinator
-        from src.storyboard.coordinator import StoryboardCoordinator
-        from src.one_liner.agents.one_linear_agent import OneLinerAgent
+    from agents.src.script_ingestion.coordinator import ScriptIngestionCoordinator
+    from agents.src.character_breakdown.coordinator import CharacterBreakdownCoordinator
+    from agents.src.scheduling.coordinator import SchedulingCoordinator
+    from agents.src.budgeting.coordinator import BudgetingCoordinator
+    from agents.src.storyboard.coordinator import StoryboardCoordinator
+    # Assuming OneLinerAgent is also under agents.src, adjust if needed
+    from agents.src.one_liner.agents.one_linear_agent import OneLinerAgent
+except ImportError as e:
+    print(f"Error importing coordinators/agents: {e}")
+    print(f"PROJECT_ROOT: {PROJECT_ROOT}")
+    print(f"sys.path: {sys.path}")
+    # Re-raise or handle the error appropriately if imports fail
+    raise e
 
-# Import agents from SD1
+# Import agents directly using the 'agents.src' path
 try:
-    # Try the module import for installed package
     from agents.src.script_ingestion.agents.parser_agent import ScriptParserAgent
     from agents.src.script_ingestion.agents.metadata_agent import MetadataAgent
     from agents.src.script_ingestion.agents.validator_agent import ValidatorAgent
@@ -67,42 +54,23 @@ try:
     from agents.src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
     from agents.src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
     from agents.src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
-except ImportError:
-    try:
-        # Try direct import with sd1 as root
-        from src.script_ingestion.agents.parser_agent import ScriptParserAgent
-        from src.script_ingestion.agents.metadata_agent import MetadataAgent
-        from src.script_ingestion.agents.validator_agent import ValidatorAgent
-        from src.character_breakdown.agents.attribute_mapper_agent import AttributeMapperAgent
-        from src.character_breakdown.agents.dialogue_profiler_agent import DialogueProfilerAgent
-        from src.scheduling.agents.location_optimizer_agent import LocationOptimizerAgent
-        from src.scheduling.agents.schedule_generator_agent import ScheduleGeneratorAgent
-        from src.scheduling.agents.crew_allocator_agent import CrewAllocatorAgent
-        from src.budgeting.agents.cost_estimator_agent import CostEstimatorAgent
-        from src.budgeting.agents.budget_optimizer_agent import BudgetOptimizerAgent
-        from src.budgeting.agents.budget_tracker_agent import BudgetTrackerAgent
-        from src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
-        from src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
-        from src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
-    except ImportError:
-        # Final fallback - already added sd1 to path earlier
-        from src.script_ingestion.agents.parser_agent import ScriptParserAgent
-        from src.script_ingestion.agents.metadata_agent import MetadataAgent
-        from src.script_ingestion.agents.validator_agent import ValidatorAgent
-        from src.character_breakdown.agents.attribute_mapper_agent import AttributeMapperAgent
-        from src.character_breakdown.agents.dialogue_profiler_agent import DialogueProfilerAgent
-        from src.scheduling.agents.location_optimizer_agent import LocationOptimizerAgent
-        from src.scheduling.agents.schedule_generator_agent import ScheduleGeneratorAgent
-        from src.scheduling.agents.crew_allocator_agent import CrewAllocatorAgent
-        from src.budgeting.agents.cost_estimator_agent import CostEstimatorAgent
-        from src.budgeting.agents.budget_optimizer_agent import BudgetOptimizerAgent
-        from src.budgeting.agents.budget_tracker_agent import BudgetTrackerAgent
-        from src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
-        from src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
-        from src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
+except ImportError as e:
+    print(f"Error importing agents: {e}")
+    print(f"PROJECT_ROOT: {PROJECT_ROOT}")
+    print(f"sys.path: {sys.path}")
+    # Re-raise or handle the error appropriately if imports fail
+    raise e
 
 # Import logging utilities
-from utils.logging_utils import get_api_logs, get_api_stats, clear_api_logs
+# Assuming utils is also directly under PROJECT_ROOT
+try:
+    from utils.logging_utils import get_api_logs, get_api_stats, clear_api_logs
+except ImportError as e:
+    print(f"Error importing logging utils: {e}")
+    print(f"PROJECT_ROOT: {PROJECT_ROOT}")
+    print(f"sys.path: {sys.path}")
+    # Re-raise or handle the error appropriately if imports fail
+    raise e
 
 # Configure logging
 logging.basicConfig(
@@ -138,12 +106,16 @@ storyboard_coordinator = StoryboardCoordinator()
 one_liner_agent = OneLinerAgent()
 
 # Storage setup
-STORAGE_DIR = os.path.join(os.path.dirname(__file__), "data", "storage")
+# Adjust path relative to PROJECT_ROOT if needed
+STORAGE_DIR = os.path.join(PROJECT_ROOT, "data", "storage")
 STORYBOARD_DIR = os.path.join(STORAGE_DIR, "storyboards")
-STATIC_STORYBOARD_DIR = os.path.join(os.path.dirname(__file__), "static", "storage", "storyboards")
-SD1_STATIC_STORYBOARD_DIR = os.path.join(os.path.dirname(__file__), "sd1", "static", "storage", "storyboards")
+# These static paths might also need adjustment depending on deployment structure
+STATIC_STORYBOARD_DIR = os.path.join(PROJECT_ROOT, "static", "storage", "storyboards")
+# Remove the SD1 static path as we removed the sd1 assumption
+# SD1_STATIC_STORYBOARD_DIR = os.path.join(PROJECT_ROOT, "sd1", "static", "storage", "storyboards")
 os.makedirs(STORAGE_DIR, exist_ok=True)
 os.makedirs(STORYBOARD_DIR, exist_ok=True)
+os.makedirs(STATIC_STORYBOARD_DIR, exist_ok=True) # Ensure static dir exists
 
 # Pydantic models
 class ScriptRequest(BaseModel):
@@ -163,7 +135,7 @@ class BudgetRequest(BaseModel):
     schedule_results: Dict[str, Any]
     production_data: Optional[Dict[str, Any]] = None
     location_data: Optional[Dict[str, Any]] = None
-    crew_data: Optional[Dict[str, Any]] = None
+    crew_data:  Optional[Dict[str, Any]] = None
     target_budget: Optional[float] = None
     constraints: Optional[Dict[str, Any]] = None
 
@@ -507,17 +479,12 @@ async def get_storyboard_image(scene_id: str):
     try:
         logger.info(f"Retrieving storyboard image for scene {scene_id}")
         
-        # Try different possible image paths in all directories
+        # Update possible paths to reflect removal of sd1 assumption
         possible_paths = [
-            # Check in static directories first
+            # Check in static directory first
             os.path.join(STATIC_STORYBOARD_DIR, f"scene_{scene_id}.webp"),
             os.path.join(STATIC_STORYBOARD_DIR, f"scene_{scene_id}.png"),
             os.path.join(STATIC_STORYBOARD_DIR, f"scene_{scene_id}.jpg"),
-            
-            # Check in sd1 static directory
-            os.path.join(SD1_STATIC_STORYBOARD_DIR, f"scene_{scene_id}.webp"),
-            os.path.join(SD1_STATIC_STORYBOARD_DIR, f"scene_{scene_id}.png"),
-            os.path.join(SD1_STATIC_STORYBOARD_DIR, f"scene_{scene_id}.jpg"),
             
             # Then try in the data storage directory
             os.path.join(STORYBOARD_DIR, f"scene_{scene_id}.webp"),
@@ -531,9 +498,11 @@ async def get_storyboard_image(scene_id: str):
         # Check if any of the possible image paths exist
         image_path = None
         for path in possible_paths:
-            if os.path.exists(path):
-                logger.info(f"Found image at path: {path}")
-                image_path = path
+            # Use absolute path for checking existence robustly
+            abs_path = os.path.abspath(path)
+            if os.path.exists(abs_path):
+                logger.info(f"Found image at path: {abs_path}")
+                image_path = abs_path
                 break
         
         # If we found an image, return it
@@ -544,11 +513,16 @@ async def get_storyboard_image(scene_id: str):
         # If no image found, log and return an error
         logger.error(f"Storyboard image not found for scene {scene_id}")
         logger.error(f"Checked paths: {possible_paths}")
-        return ApiResponse(success=False, error=f"Storyboard image not found for scene {scene_id}")
+        # Return 404 instead of ApiResponse for missing file
+        raise HTTPException(status_code=404, detail=f"Storyboard image not found for scene {scene_id}")
     
+    except HTTPException as http_exc:
+        # Re-raise HTTP exceptions
+        raise http_exc
     except Exception as e:
         logger.error(f"Error in get_storyboard_image: {str(e)}", exc_info=True)
-        return ApiResponse(success=False, error=f"Error retrieving storyboard image: {str(e)}")
+        # Return a standard 500 error response
+        raise HTTPException(status_code=500, detail=f"Error retrieving storyboard image: {str(e)}")
 
 @app.get("/api/storage/{filename}")
 async def get_stored_data(filename: str):
@@ -675,5 +649,9 @@ async def process_script_text(request: ScriptTextRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # Ensure the app runs relative to this file's location
+    # host="0.0.0.0" is standard for containers/deployments
+    # port=8000 is common, Render might inject PORT env var
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("api:app", host="0.0.0.0", port=port, reload=False) # Use string 'api:app' for uvicorn
     
