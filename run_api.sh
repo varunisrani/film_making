@@ -16,5 +16,5 @@ fi
 # Set up Python path
 export PYTHONPATH=$PYTHONPATH:$(pwd):$(pwd)/src:$(pwd)/sd1:$(pwd)/sd1/src:$(pwd)/agents
 
-# Run the Streamlit app
-streamlit run app.py
+# Run the FastAPI app with uvicorn
+uvicorn api:app --host 0.0.0.0 --port 8000 --reload

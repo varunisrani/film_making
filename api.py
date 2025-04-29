@@ -20,69 +20,141 @@ logger = logging.getLogger(__name__)
 
 # Import coordinators with fallback paths
 try:
-    # Try importing from agents package first
-    from agents.src.script_ingestion.coordinator import ScriptIngestionCoordinator
-    from agents.src.character_breakdown.coordinator import CharacterBreakdownCoordinator
-    from agents.src.scheduling.coordinator import SchedulingCoordinator
-    from agents.src.budgeting.coordinator import BudgetingCoordinator
-    from agents.src.storyboard.coordinator import StoryboardCoordinator
-    from agents.src.one_liner.agents.one_linear_agent import OneLinerAgent
-    logger.info("Successfully imported coordinators from agents package")
+    # Try importing from sd1.src package first (for compatibility with older code)
+    from sd1.src.script_ingestion.coordinator import ScriptIngestionCoordinator
+    from sd1.src.character_breakdown.coordinator import CharacterBreakdownCoordinator
+    from sd1.src.scheduling.coordinator import SchedulingCoordinator
+    from sd1.src.budgeting.coordinator import BudgetingCoordinator
+    from sd1.src.storyboard.coordinator import StoryboardCoordinator
+    from sd1.src.one_liner.agents.one_linear_agent import OneLinerAgent
+    logger.info("Successfully imported coordinators from sd1.src package")
 except ImportError as e:
-    logger.warning(f"Failed to import from agents package: {e}")
+    logger.warning(f"Failed to import from sd1.src package: {e}")
     try:
-        # Fallback to src package
-        from src.script_ingestion.coordinator import ScriptIngestionCoordinator
-        from src.character_breakdown.coordinator import CharacterBreakdownCoordinator
-        from src.scheduling.coordinator import SchedulingCoordinator
-        from src.budgeting.coordinator import BudgetingCoordinator
-        from src.storyboard.coordinator import StoryboardCoordinator
-        from src.one_liner.agents.one_linear_agent import OneLinerAgent
-        logger.info("Successfully imported coordinators from src package")
+        # Try importing from agents package
+        from agents.src.script_ingestion.coordinator import ScriptIngestionCoordinator
+        from agents.src.character_breakdown.coordinator import CharacterBreakdownCoordinator
+        from agents.src.scheduling.coordinator import SchedulingCoordinator
+        from agents.src.budgeting.coordinator import BudgetingCoordinator
+        from agents.src.storyboard.coordinator import StoryboardCoordinator
+        from agents.src.one_liner.agents.one_linear_agent import OneLinerAgent
+        logger.info("Successfully imported coordinators from agents package")
     except ImportError as e2:
-        logger.error(f"Failed to import from both paths: {e2}")
-        raise ImportError("Could not import coordinator modules. Check PYTHONPATH and project structure.")
+        logger.warning(f"Failed to import from agents package: {e2}")
+        try:
+            # Fallback to src package
+            from src.script_ingestion.coordinator import ScriptIngestionCoordinator
+            from src.character_breakdown.coordinator import CharacterBreakdownCoordinator
+            from src.scheduling.coordinator import SchedulingCoordinator
+            from src.budgeting.coordinator import BudgetingCoordinator
+            from src.storyboard.coordinator import StoryboardCoordinator
+            from src.one_liner.agents.one_linear_agent import OneLinerAgent
+            logger.info("Successfully imported coordinators from src package")
+        except ImportError as e3:
+            logger.error(f"Failed to import from all paths: {e3}")
+            # Final fallback - try relative imports
+            try:
+                import sys
+                import os
+                # Add the current directory to sys.path
+                current_dir = os.path.dirname(os.path.abspath(__file__))
+                if current_dir not in sys.path:
+                    sys.path.insert(0, current_dir)
+                from src.script_ingestion.coordinator import ScriptIngestionCoordinator
+                from src.character_breakdown.coordinator import CharacterBreakdownCoordinator
+                from src.scheduling.coordinator import SchedulingCoordinator
+                from src.budgeting.coordinator import BudgetingCoordinator
+                from src.storyboard.coordinator import StoryboardCoordinator
+                from src.one_liner.agents.one_linear_agent import OneLinerAgent
+                logger.info("Successfully imported coordinators using path adjustment")
+            except ImportError as e4:
+                logger.error(f"Failed to import from all paths even after path adjustment: {e4}")
+                raise ImportError("Could not import coordinator modules. Check PYTHONPATH and project structure.")
 
 # Import agents with fallback paths
 try:
-    # Try importing from agents package first
-    from agents.src.script_ingestion.agents.parser_agent import ScriptParserAgent
-    from agents.src.script_ingestion.agents.metadata_agent import MetadataAgent
-    from agents.src.script_ingestion.agents.validator_agent import ValidatorAgent
-    from agents.src.character_breakdown.agents.attribute_mapper_agent import AttributeMapperAgent
-    from agents.src.character_breakdown.agents.dialogue_profiler_agent import DialogueProfilerAgent
-    from agents.src.scheduling.agents.location_optimizer_agent import LocationOptimizerAgent
-    from agents.src.scheduling.agents.schedule_generator_agent import ScheduleGeneratorAgent
-    from agents.src.scheduling.agents.crew_allocator_agent import CrewAllocatorAgent
-    from agents.src.budgeting.agents.cost_estimator_agent import CostEstimatorAgent
-    from agents.src.budgeting.agents.budget_optimizer_agent import BudgetOptimizerAgent
-    from agents.src.budgeting.agents.budget_tracker_agent import BudgetTrackerAgent
-    from agents.src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
-    from agents.src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
-    from agents.src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
-    logger.info("Successfully imported agents from agents package")
+    # Try importing from sd1.src package first (for compatibility with older code)
+    from sd1.src.script_ingestion.agents.parser_agent import ScriptParserAgent
+    from sd1.src.script_ingestion.agents.metadata_agent import MetadataAgent
+    from sd1.src.script_ingestion.agents.validator_agent import ValidatorAgent
+    from sd1.src.character_breakdown.agents.attribute_mapper_agent import AttributeMapperAgent
+    from sd1.src.character_breakdown.agents.dialogue_profiler_agent import DialogueProfilerAgent
+    from sd1.src.scheduling.agents.location_optimizer_agent import LocationOptimizerAgent
+    from sd1.src.scheduling.agents.schedule_generator_agent import ScheduleGeneratorAgent
+    from sd1.src.scheduling.agents.crew_allocator_agent import CrewAllocatorAgent
+    from sd1.src.budgeting.agents.cost_estimator_agent import CostEstimatorAgent
+    from sd1.src.budgeting.agents.budget_optimizer_agent import BudgetOptimizerAgent
+    from sd1.src.budgeting.agents.budget_tracker_agent import BudgetTrackerAgent
+    from sd1.src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
+    from sd1.src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
+    from sd1.src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
+    logger.info("Successfully imported agents from sd1.src package")
 except ImportError as e:
-    logger.warning(f"Failed to import agents from agents package: {e}")
+    logger.warning(f"Failed to import agents from sd1.src package: {e}")
     try:
-        # Fallback to src package
-        from src.script_ingestion.agents.parser_agent import ScriptParserAgent
-        from src.script_ingestion.agents.metadata_agent import MetadataAgent
-        from src.script_ingestion.agents.validator_agent import ValidatorAgent
-        from src.character_breakdown.agents.attribute_mapper_agent import AttributeMapperAgent
-        from src.character_breakdown.agents.dialogue_profiler_agent import DialogueProfilerAgent
-        from src.scheduling.agents.location_optimizer_agent import LocationOptimizerAgent
-        from src.scheduling.agents.schedule_generator_agent import ScheduleGeneratorAgent
-        from src.scheduling.agents.crew_allocator_agent import CrewAllocatorAgent
-        from src.budgeting.agents.cost_estimator_agent import CostEstimatorAgent
-        from src.budgeting.agents.budget_optimizer_agent import BudgetOptimizerAgent
-        from src.budgeting.agents.budget_tracker_agent import BudgetTrackerAgent
-        from src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
-        from src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
-        from src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
-        logger.info("Successfully imported agents from src package")
+        # Try importing from agents package
+        from agents.src.script_ingestion.agents.parser_agent import ScriptParserAgent
+        from agents.src.script_ingestion.agents.metadata_agent import MetadataAgent
+        from agents.src.script_ingestion.agents.validator_agent import ValidatorAgent
+        from agents.src.character_breakdown.agents.attribute_mapper_agent import AttributeMapperAgent
+        from agents.src.character_breakdown.agents.dialogue_profiler_agent import DialogueProfilerAgent
+        from agents.src.scheduling.agents.location_optimizer_agent import LocationOptimizerAgent
+        from agents.src.scheduling.agents.schedule_generator_agent import ScheduleGeneratorAgent
+        from agents.src.scheduling.agents.crew_allocator_agent import CrewAllocatorAgent
+        from agents.src.budgeting.agents.cost_estimator_agent import CostEstimatorAgent
+        from agents.src.budgeting.agents.budget_optimizer_agent import BudgetOptimizerAgent
+        from agents.src.budgeting.agents.budget_tracker_agent import BudgetTrackerAgent
+        from agents.src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
+        from agents.src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
+        from agents.src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
+        logger.info("Successfully imported agents from agents package")
     except ImportError as e2:
-        logger.error(f"Failed to import agents from both paths: {e2}")
-        raise ImportError("Could not import agent modules. Check PYTHONPATH and project structure.")
+        logger.warning(f"Failed to import agents from agents package: {e2}")
+        try:
+            # Fallback to src package
+            from src.script_ingestion.agents.parser_agent import ScriptParserAgent
+            from src.script_ingestion.agents.metadata_agent import MetadataAgent
+            from src.script_ingestion.agents.validator_agent import ValidatorAgent
+            from src.character_breakdown.agents.attribute_mapper_agent import AttributeMapperAgent
+            from src.character_breakdown.agents.dialogue_profiler_agent import DialogueProfilerAgent
+            from src.scheduling.agents.location_optimizer_agent import LocationOptimizerAgent
+            from src.scheduling.agents.schedule_generator_agent import ScheduleGeneratorAgent
+            from src.scheduling.agents.crew_allocator_agent import CrewAllocatorAgent
+            from src.budgeting.agents.cost_estimator_agent import CostEstimatorAgent
+            from src.budgeting.agents.budget_optimizer_agent import BudgetOptimizerAgent
+            from src.budgeting.agents.budget_tracker_agent import BudgetTrackerAgent
+            from src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
+            from src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
+            from src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
+            logger.info("Successfully imported agents from src package")
+        except ImportError as e3:
+            logger.error(f"Failed to import agents from all paths: {e3}")
+            # Final fallback - try relative imports
+            try:
+                import sys
+                import os
+                # Add the current directory to sys.path
+                current_dir = os.path.dirname(os.path.abspath(__file__))
+                if current_dir not in sys.path:
+                    sys.path.insert(0, current_dir)
+                from src.script_ingestion.agents.parser_agent import ScriptParserAgent
+                from src.script_ingestion.agents.metadata_agent import MetadataAgent
+                from src.script_ingestion.agents.validator_agent import ValidatorAgent
+                from src.character_breakdown.agents.attribute_mapper_agent import AttributeMapperAgent
+                from src.character_breakdown.agents.dialogue_profiler_agent import DialogueProfilerAgent
+                from src.scheduling.agents.location_optimizer_agent import LocationOptimizerAgent
+                from src.scheduling.agents.schedule_generator_agent import ScheduleGeneratorAgent
+                from src.scheduling.agents.crew_allocator_agent import CrewAllocatorAgent
+                from src.budgeting.agents.cost_estimator_agent import CostEstimatorAgent
+                from src.budgeting.agents.budget_optimizer_agent import BudgetOptimizerAgent
+                from src.budgeting.agents.budget_tracker_agent import BudgetTrackerAgent
+                from src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
+                from src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
+                from src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
+                logger.info("Successfully imported agents using path adjustment")
+            except ImportError as e4:
+                logger.error(f"Failed to import agents from all paths even after path adjustment: {e4}")
+                raise ImportError("Could not import agent modules. Check PYTHONPATH and project structure.")
 
 # Import logging utilities
 from utils.logging_utils import get_api_logs, get_api_stats, clear_api_logs
