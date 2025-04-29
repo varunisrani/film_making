@@ -1,38 +1,71 @@
+import sys
+import os
+# Add the current directory to the Python path
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form, BackgroundTasks, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from typing import Dict, List, Optional, Any, Union
 import json
-import os
 import asyncio
 import logging
 from datetime import datetime, date, timedelta
 from dotenv import load_dotenv
 
 # Import coordinators from SD1
-from sd1.src.script_ingestion.coordinator import ScriptIngestionCoordinator
-from sd1.src.character_breakdown.coordinator import CharacterBreakdownCoordinator
-from sd1.src.scheduling.coordinator import SchedulingCoordinator
-from sd1.src.budgeting.coordinator import BudgetingCoordinator
-from sd1.src.storyboard.coordinator import StoryboardCoordinator
-from sd1.src.one_liner.agents.one_linear_agent import OneLinerAgent
+try:
+    # Try the standard import first
+    from sd1.src.script_ingestion.coordinator import ScriptIngestionCoordinator
+    from sd1.src.character_breakdown.coordinator import CharacterBreakdownCoordinator
+    from sd1.src.scheduling.coordinator import SchedulingCoordinator
+    from sd1.src.budgeting.coordinator import BudgetingCoordinator
+    from sd1.src.storyboard.coordinator import StoryboardCoordinator
+    from sd1.src.one_liner.agents.one_linear_agent import OneLinerAgent
+except ImportError:
+    # Fallback to direct import - adjust this path based on your actual file structure
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sd1'))
+    from src.script_ingestion.coordinator import ScriptIngestionCoordinator
+    from src.character_breakdown.coordinator import CharacterBreakdownCoordinator
+    from src.scheduling.coordinator import SchedulingCoordinator
+    from src.budgeting.coordinator import BudgetingCoordinator
+    from src.storyboard.coordinator import StoryboardCoordinator
+    from src.one_liner.agents.one_linear_agent import OneLinerAgent
 
 # Import agents from SD1
-from sd1.src.script_ingestion.agents.parser_agent import ScriptParserAgent
-from sd1.src.script_ingestion.agents.metadata_agent import MetadataAgent
-from sd1.src.script_ingestion.agents.validator_agent import ValidatorAgent
-from sd1.src.character_breakdown.agents.attribute_mapper_agent import AttributeMapperAgent
-from sd1.src.character_breakdown.agents.dialogue_profiler_agent import DialogueProfilerAgent
-from sd1.src.scheduling.agents.location_optimizer_agent import LocationOptimizerAgent
-from sd1.src.scheduling.agents.schedule_generator_agent import ScheduleGeneratorAgent
-from sd1.src.scheduling.agents.crew_allocator_agent import CrewAllocatorAgent
-from sd1.src.budgeting.agents.cost_estimator_agent import CostEstimatorAgent
-from sd1.src.budgeting.agents.budget_optimizer_agent import BudgetOptimizerAgent
-from sd1.src.budgeting.agents.budget_tracker_agent import BudgetTrackerAgent
-from sd1.src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
-from sd1.src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
-from sd1.src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
+try:
+    # Try the standard import first
+    from sd1.src.script_ingestion.agents.parser_agent import ScriptParserAgent
+    from sd1.src.script_ingestion.agents.metadata_agent import MetadataAgent
+    from sd1.src.script_ingestion.agents.validator_agent import ValidatorAgent
+    from sd1.src.character_breakdown.agents.attribute_mapper_agent import AttributeMapperAgent
+    from sd1.src.character_breakdown.agents.dialogue_profiler_agent import DialogueProfilerAgent
+    from sd1.src.scheduling.agents.location_optimizer_agent import LocationOptimizerAgent
+    from sd1.src.scheduling.agents.schedule_generator_agent import ScheduleGeneratorAgent
+    from sd1.src.scheduling.agents.crew_allocator_agent import CrewAllocatorAgent
+    from sd1.src.budgeting.agents.cost_estimator_agent import CostEstimatorAgent
+    from sd1.src.budgeting.agents.budget_optimizer_agent import BudgetOptimizerAgent
+    from sd1.src.budgeting.agents.budget_tracker_agent import BudgetTrackerAgent
+    from sd1.src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
+    from sd1.src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
+    from sd1.src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
+except ImportError:
+    # Fallback to direct import
+    from src.script_ingestion.agents.parser_agent import ScriptParserAgent
+    from src.script_ingestion.agents.metadata_agent import MetadataAgent
+    from src.script_ingestion.agents.validator_agent import ValidatorAgent
+    from src.character_breakdown.agents.attribute_mapper_agent import AttributeMapperAgent
+    from src.character_breakdown.agents.dialogue_profiler_agent import DialogueProfilerAgent
+    from src.scheduling.agents.location_optimizer_agent import LocationOptimizerAgent
+    from src.scheduling.agents.schedule_generator_agent import ScheduleGeneratorAgent
+    from src.scheduling.agents.crew_allocator_agent import CrewAllocatorAgent
+    from src.budgeting.agents.cost_estimator_agent import CostEstimatorAgent
+    from src.budgeting.agents.budget_optimizer_agent import BudgetOptimizerAgent
+    from src.budgeting.agents.budget_tracker_agent import BudgetTrackerAgent
+    from src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
+    from src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
+    from src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
 
 # Import logging utilities
 from utils.logging_utils import get_api_logs, get_api_stats, clear_api_logs
