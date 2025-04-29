@@ -1,45 +1,51 @@
-import sys
 import os
-
-# Get absolute path of the project root directory
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
-# Add the project root to the Python path
-sys.path.insert(0, PROJECT_ROOT)
-
-# REMOVE: Add the sd1 directory to the Python path
-# sd1_path = os.path.join(PROJECT_ROOT, 'sd1')
-# sys.path.insert(0, sd1_path)
-
+import logging
 from fastapi import FastAPI, HTTPException, UploadFile, File, Form, BackgroundTasks, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from typing import Dict, List, Optional, Any, Union
 import json
 import asyncio
-import logging
 from datetime import datetime, date, timedelta
 from dotenv import load_dotenv
 
-# Import coordinators directly using the 'agents.src' path
+# Configure logging first
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+logger = logging.getLogger(__name__)
+
+# Import coordinators with fallback paths
 try:
+    # Try importing from agents package first
     from agents.src.script_ingestion.coordinator import ScriptIngestionCoordinator
     from agents.src.character_breakdown.coordinator import CharacterBreakdownCoordinator
     from agents.src.scheduling.coordinator import SchedulingCoordinator
     from agents.src.budgeting.coordinator import BudgetingCoordinator
     from agents.src.storyboard.coordinator import StoryboardCoordinator
-    # Assuming OneLinerAgent is also under agents.src, adjust if needed
     from agents.src.one_liner.agents.one_linear_agent import OneLinerAgent
+    logger.info("Successfully imported coordinators from agents package")
 except ImportError as e:
-    print(f"Error importing coordinators/agents: {e}")
-    print(f"PROJECT_ROOT: {PROJECT_ROOT}")
-    print(f"sys.path: {sys.path}")
-    # Re-raise or handle the error appropriately if imports fail
-    raise e
+    logger.warning(f"Failed to import from agents package: {e}")
+    try:
+        # Fallback to src package
+        from src.script_ingestion.coordinator import ScriptIngestionCoordinator
+        from src.character_breakdown.coordinator import CharacterBreakdownCoordinator
+        from src.scheduling.coordinator import SchedulingCoordinator
+        from src.budgeting.coordinator import BudgetingCoordinator
+        from src.storyboard.coordinator import StoryboardCoordinator
+        from src.one_liner.agents.one_linear_agent import OneLinerAgent
+        logger.info("Successfully imported coordinators from src package")
+    except ImportError as e2:
+        logger.error(f"Failed to import from both paths: {e2}")
+        raise ImportError("Could not import coordinator modules. Check PYTHONPATH and project structure.")
 
-# Import agents directly using the 'agents.src' path
+# Import agents with fallback paths
 try:
+    # Try importing from agents package first
     from agents.src.script_ingestion.agents.parser_agent import ScriptParserAgent
     from agents.src.script_ingestion.agents.metadata_agent import MetadataAgent
     from agents.src.script_ingestion.agents.validator_agent import ValidatorAgent
@@ -54,30 +60,32 @@ try:
     from agents.src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
     from agents.src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
     from agents.src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
+    logger.info("Successfully imported agents from agents package")
 except ImportError as e:
-    print(f"Error importing agents: {e}")
-    print(f"PROJECT_ROOT: {PROJECT_ROOT}")
-    print(f"sys.path: {sys.path}")
-    # Re-raise or handle the error appropriately if imports fail
-    raise e
+    logger.warning(f"Failed to import agents from agents package: {e}")
+    try:
+        # Fallback to src package
+        from src.script_ingestion.agents.parser_agent import ScriptParserAgent
+        from src.script_ingestion.agents.metadata_agent import MetadataAgent
+        from src.script_ingestion.agents.validator_agent import ValidatorAgent
+        from src.character_breakdown.agents.attribute_mapper_agent import AttributeMapperAgent
+        from src.character_breakdown.agents.dialogue_profiler_agent import DialogueProfilerAgent
+        from src.scheduling.agents.location_optimizer_agent import LocationOptimizerAgent
+        from src.scheduling.agents.schedule_generator_agent import ScheduleGeneratorAgent
+        from src.scheduling.agents.crew_allocator_agent import CrewAllocatorAgent
+        from src.budgeting.agents.cost_estimator_agent import CostEstimatorAgent
+        from src.budgeting.agents.budget_optimizer_agent import BudgetOptimizerAgent
+        from src.budgeting.agents.budget_tracker_agent import BudgetTrackerAgent
+        from src.storyboard.agents.prompt_generator_agent import PromptGeneratorAgent
+        from src.storyboard.agents.image_generator_agent import ImageGeneratorAgent
+        from src.storyboard.agents.storyboard_formatter_agent import StoryboardFormatterAgent
+        logger.info("Successfully imported agents from src package")
+    except ImportError as e2:
+        logger.error(f"Failed to import agents from both paths: {e2}")
+        raise ImportError("Could not import agent modules. Check PYTHONPATH and project structure.")
 
 # Import logging utilities
-# Assuming utils is also directly under PROJECT_ROOT
-try:
-    from utils.logging_utils import get_api_logs, get_api_stats, clear_api_logs
-except ImportError as e:
-    print(f"Error importing logging utils: {e}")
-    print(f"PROJECT_ROOT: {PROJECT_ROOT}")
-    print(f"sys.path: {sys.path}")
-    # Re-raise or handle the error appropriately if imports fail
-    raise e
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-)
-logger = logging.getLogger(__name__)
+from utils.logging_utils import get_api_logs, get_api_stats, clear_api_logs
 
 # Load environment variables
 load_dotenv()
@@ -105,17 +113,19 @@ budgeting_coordinator = BudgetingCoordinator()
 storyboard_coordinator = StoryboardCoordinator()
 one_liner_agent = OneLinerAgent()
 
-# Storage setup
-# Adjust path relative to PROJECT_ROOT if needed
-STORAGE_DIR = os.path.join(PROJECT_ROOT, "data", "storage")
-STORYBOARD_DIR = os.path.join(STORAGE_DIR, "storyboards")
-# These static paths might also need adjustment depending on deployment structure
-STATIC_STORYBOARD_DIR = os.path.join(PROJECT_ROOT, "static", "storage", "storyboards")
-# Remove the SD1 static path as we removed the sd1 assumption
-# SD1_STATIC_STORYBOARD_DIR = os.path.join(PROJECT_ROOT, "sd1", "static", "storage", "storyboards")
-os.makedirs(STORAGE_DIR, exist_ok=True)
-os.makedirs(STORYBOARD_DIR, exist_ok=True)
-os.makedirs(STATIC_STORYBOARD_DIR, exist_ok=True) # Ensure static dir exists
+# Storage setup for Render deployment
+# Use relative paths that will work in the Render environment
+STORAGE_DIR = "data/storage"
+STORYBOARD_DIR = f"{STORAGE_DIR}/storyboards"
+STATIC_DIR = "static"
+STATIC_STORYBOARD_DIR = f"{STATIC_DIR}/storage/storyboards"
+
+# Ensure directories exist
+for directory in [STORAGE_DIR, STORYBOARD_DIR, STATIC_DIR, STATIC_STORYBOARD_DIR]:
+    os.makedirs(directory, exist_ok=True)
+
+# Mount static files directory
+app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 # Pydantic models
 class ScriptRequest(BaseModel):
@@ -174,7 +184,7 @@ def save_to_storage(data: dict, filename: str):
     filepath = os.path.join(STORAGE_DIR, filename)
     with open(filepath, 'w') as f:
         json.dump(data, f, indent=2)
-    return filepath
+    return filename  # Return just the filename instead of full path
 
 def load_from_storage(filename: str) -> dict:
     """Load data from storage."""
@@ -184,7 +194,7 @@ def load_from_storage(filename: str) -> dict:
             with open(filepath, 'r') as f:
                 return json.load(f)
         except json.JSONDecodeError:
-            logger.error(f"Error decoding JSON from {filepath}")
+            logger.error(f"Error decoding JSON from {filename}")
             return {}
     else:
         logger.info(f"File {filename} not found, returning empty dict")
@@ -479,49 +489,34 @@ async def get_storyboard_image(scene_id: str):
     try:
         logger.info(f"Retrieving storyboard image for scene {scene_id}")
         
-        # Update possible paths to reflect removal of sd1 assumption
+        # Check in both static and data directories with simple paths
         possible_paths = [
-            # Check in static directory first
             os.path.join(STATIC_STORYBOARD_DIR, f"scene_{scene_id}.webp"),
             os.path.join(STATIC_STORYBOARD_DIR, f"scene_{scene_id}.png"),
             os.path.join(STATIC_STORYBOARD_DIR, f"scene_{scene_id}.jpg"),
-            
-            # Then try in the data storage directory
             os.path.join(STORYBOARD_DIR, f"scene_{scene_id}.webp"),
             os.path.join(STORYBOARD_DIR, f"scene_{scene_id}.png"),
             os.path.join(STORYBOARD_DIR, f"scene_{scene_id}.jpg"),
         ]
         
-        # Debug log all the paths we're checking
-        logger.debug(f"Checking the following paths for scene {scene_id}: {possible_paths}")
-        
-        # Check if any of the possible image paths exist
+        # Find the first existing image file
         image_path = None
         for path in possible_paths:
-            # Use absolute path for checking existence robustly
-            abs_path = os.path.abspath(path)
-            if os.path.exists(abs_path):
-                logger.info(f"Found image at path: {abs_path}")
-                image_path = abs_path
+            if os.path.exists(path):
+                image_path = path
                 break
         
-        # If we found an image, return it
         if image_path:
             logger.info(f"Serving storyboard image from {image_path}")
-            return FileResponse(image_path, media_type="image/webp")
+            return FileResponse(image_path)
         
-        # If no image found, log and return an error
         logger.error(f"Storyboard image not found for scene {scene_id}")
-        logger.error(f"Checked paths: {possible_paths}")
-        # Return 404 instead of ApiResponse for missing file
         raise HTTPException(status_code=404, detail=f"Storyboard image not found for scene {scene_id}")
     
     except HTTPException as http_exc:
-        # Re-raise HTTP exceptions
         raise http_exc
     except Exception as e:
         logger.error(f"Error in get_storyboard_image: {str(e)}", exc_info=True)
-        # Return a standard 500 error response
         raise HTTPException(status_code=500, detail=f"Error retrieving storyboard image: {str(e)}")
 
 @app.get("/api/storage/{filename}")
@@ -649,9 +644,7 @@ async def process_script_text(request: ScriptTextRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    # Ensure the app runs relative to this file's location
-    # host="0.0.0.0" is standard for containers/deployments
-    # port=8000 is common, Render might inject PORT env var
+    # Use Render's PORT environment variable
     port = int(os.environ.get("PORT", 8000))
-    uvicorn.run("api:app", host="0.0.0.0", port=port, reload=False) # Use string 'api:app' for uvicorn
-    
+    # Host on 0.0.0.0 for Render
+    uvicorn.run("api:app", host="0.0.0.0", port=port, workers=1)

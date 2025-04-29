@@ -1,16 +1,23 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Exit on error
+set -o errexit
 
-# Make the script executable
-chmod +x build.sh
-
-# Set Python path for the current environment
-export PYTHONPATH=$PYTHONPATH:/opt/render/project/src:/opt/render/project/src/sd1
-
-# Install dependencies
+# Install Python dependencies
 pip install -r requirements.txt
+
+# Create necessary directories
+mkdir -p data/storage/storyboards
+mkdir -p static/storage/storyboards
+
+# Make the script directory importable
+touch agents/__init__.py
+touch utils/__init__.py
 
 # Install the local package in development mode
 pip install -e .
+
+# Set environment variables
+export PYTHONPATH=$PYTHONPATH:/opt/render/project/src
 
 # Install the sd1 package
 cd sd1
